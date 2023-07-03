@@ -1,7 +1,6 @@
 import { IsNotEmpty } from "class-validator";
-import { RoleType } from "src/modules/role/roletype.enum";
 
-export class UserDto {
+export class RoleDto {
     @IsNotEmpty()
     id: number
 
@@ -9,9 +8,7 @@ export class UserDto {
     name: string
 
     @IsNotEmpty()
-
     description: string
-
 
 
 }

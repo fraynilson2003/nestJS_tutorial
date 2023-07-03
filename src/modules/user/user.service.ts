@@ -1,6 +1,5 @@
 import { BadRequestException, Inject, Injectable, NotFoundException, } from '@nestjs/common';
 import { InjectRepository } from "@nestjs/typeorm"
-import { MapperService } from '../../shared/mapper.service';
 import { UserDto } from './dto/user.dto';
 import { User } from './user.entity';
 import { UpdateResult, getConnection } from 'typeorm';
@@ -15,12 +14,11 @@ export class UserService {
     constructor(
         //@InjectRepository(User)
         private readonly _userRepository: UserRepository,
-        private readonly _mapperService: MapperService
     ) {
 
     }
 
-    async getOne(id: number): Promise<UserDto> {
+    async getOne(id: number): Promise<User> {
         if (!id) {
             throw new BadRequestException("id must be sent")
         }
@@ -31,43 +29,29 @@ export class UserService {
             throw new NotFoundException()
         }
 
-        return this._mapperService.map<User, UserDto>(user, new UserDto())
+        return user
     }
 
-    async getAll(): Promise<UserDto[]> {
+    async getAll(): Promise<User[]> {
         const users: User[] = await this._userRepository.find({
             where: {
                 status: "ACTIVE"
             }
         })
 
-        // if (!users.length) {
-        //     throw new NotFoundException("No haynada")
-        // }
 
-        return this._mapperService.mapCollection<User, UserDto>(users, new UserDto())
+        return users
     }
 
-    async create(user: User): Promise<UserDto> {
+    async create(user: User): Promise<User> {
         const details: UserDetails = new UserDetails()
         user.details = details
 
-        const roleDefault = new Role()
-        roleDefault.id = 1
-        roleDefault.name = "GENERAL"
-        roleDefault.description = "description"
-        roleDefault.status = "ACTIVE"
-        roleDefault.createdAt = new Date("2021-10-11")
-        roleDefault.updatedAt = new Date("2021-10-11")
-
-
-        user.roles = [roleDefault]
-
         const saveUser = await this._userRepository.save(user)
-        return this._mapperService.map<User, UserDto>(user, new UserDto())
+        return saveUser
     }
 
-    async update(id: number, user: User): Promise<UserDto> {
+    async update(id: number, user: User): Promise<User> {
         const updateUser: UpdateResult = await this._userRepository.update(id, user)
         // if(updateUser.affected){
 

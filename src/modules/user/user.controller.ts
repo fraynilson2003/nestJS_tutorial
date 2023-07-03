@@ -12,19 +12,19 @@ export class UserController {
     }
 
     @Get(":id")
-    async getUser(@Param("id", ParseIntPipe) id: number): Promise<UserDto> {
+    async getUser(@Param("id", ParseIntPipe) id: number): Promise<User> {
         const user = await this._userService.getOne(id)
         return user
     }
 
     @Get()
-    async getAllUsers(): Promise<UserDto[]> {
+    async getAllUsers(): Promise<User[]> {
         const users = await this._userService.getAll()
         return users
     }
 
     @Post()
-    async createUser(@Body() user: User): Promise<UserDto> {
+    async createUser(@Body() user: User): Promise<User> {
         try {
             const createdUser = await this._userService.create(user)
             return createdUser
@@ -37,7 +37,7 @@ export class UserController {
     }
 
     @Patch(":id")
-    async updateUser(@Param("id", ParseIntPipe) id: number, @Body() user: User): Promise<UserDto> {
+    async updateUser(@Param("id", ParseIntPipe) id: number, @Body() user: User): Promise<User> {
         const createdUser = await this._userService.update(id, user)
         return createdUser
     }
