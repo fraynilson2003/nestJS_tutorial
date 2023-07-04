@@ -4,6 +4,7 @@ import { UpdateResult } from 'typeorm';
 import { Role } from '../role/role.entity';
 import { RoleRepository } from './role.repository';
 import { RoleDto } from './dto/role.dto';
+import { EStatusRole } from './interfaces/status-role.interface';
 
 @Injectable()
 export class RoleService {
@@ -68,14 +69,14 @@ export class RoleService {
 
     async delete(id: number): Promise<void> {
         const roleExists = await this._roleRepository.findOne({
-            where: { id: id, status: "ACTIVE" }
+            where: { id: id, status: EStatusRole.ACTIVE }
         })
 
         if (!roleExists) {
             throw new NotFoundException()
         }
         await this._roleRepository.update(id, {
-            status: "INACTIVE"
+            status: EStatusRole.INACTIVE
         })
     }
 

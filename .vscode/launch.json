@@ -1,13 +1,29 @@
+// {
+//     "version": "0.2.0",
+//     "configurations": [
+//       {
+//         "type": "node",
+//         "request": "launch",
+//         "name": "Nest.JS",
+//         "skipFiles": ["<node_internals>/**"],
+//         "program": "${workspaceFolder}\\src/main.ts"
+//       }
+//     ]
+//   }
+
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Debug Nest Framework",
-            "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
-            "args": ["${workspaceFolder}/src/main.ts"],
-            "autoAttachChildProcesses": true
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "NestJS Debug",
+      "type": "node",
+      "request": "launch",
+      "args": ["${workspaceRoot}/dist/main"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector",
+      "internalConsoleOptions": "openOnSessionStart"
+    }
+  ]
 }

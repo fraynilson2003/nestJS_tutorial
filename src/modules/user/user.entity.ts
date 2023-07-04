@@ -12,6 +12,7 @@ import {
 } from "typeorm"
 import { UserDetails } from "./user.details.entity";
 import { Role } from "../role/role.entity";
+import { EStatusUser } from "./interfaces/status-user.interface";
 
 @Entity("users")
 export class User extends BaseEntity {
@@ -35,7 +36,7 @@ export class User extends BaseEntity {
     @JoinTable({ name: "user_roles" })
     roles: Role[]
 
-    @Column({ type: "varchar", default: "ACTIVE", length: 8 })
+    @Column({ type: "varchar", default: EStatusUser.ACTIVE, length: 8 })
     status: string
 
     @CreateDateColumn({ type: "timestamp", name: "created_at" })

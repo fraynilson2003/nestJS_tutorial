@@ -1,5 +1,6 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn } from "typeorm"
 import { User } from "./user.entity";
+import { EStatusUser } from "./interfaces/status-user.interface";
 
 @Entity("user_details")
 export class UserDetails extends BaseEntity {
@@ -12,8 +13,8 @@ export class UserDetails extends BaseEntity {
     @Column({ type: "varchar", nullable: true })
     lastname: string
 
-    @Column({ type: "varchar", default: "ACTIVE", length: 8 })
-    status: string
+    @Column({ type: "varchar", default: EStatusUser.ACTIVE, length: 8 })
+    status: EStatusUser
 
     // @OneToOne((type) => User, { cascade: true, nullable: false, eager: true })
     // @JoinColumn({ name: "user_id" })

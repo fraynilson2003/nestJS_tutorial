@@ -1,7 +1,8 @@
-import { Controller, Param, Get, Post, Body, Patch, Delete, NotFoundException, ParseIntPipe } from '@nestjs/common';
+import { Controller, Param, Get, Post, Body, Patch, Delete, NotFoundException, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDto } from './dto/user.dto';
 import { User } from './user.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UserController {
@@ -17,6 +18,7 @@ export class UserController {
         return user
     }
 
+    @UseGuards(AuthGuard())
     @Get()
     async getAllUsers(): Promise<User[]> {
         const users = await this._userService.getAll()
@@ -33,6 +35,16 @@ export class UserController {
 
             throw new Error(error)
         }
+
+    }
+
+    @UseGuards(AuthGuard())
+    @Post("/setRole/:userId/:roleId")
+    async addRoleToUser(
+        @Param("userId", ParseIntPipe) userId: number,
+        @Param("roleId", ParseIntPipe) roleId: number): Promise<boolean> {
+
+        return this._userService.setRoleToUser(userId, roleId)
 
     }
 
