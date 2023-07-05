@@ -8,7 +8,7 @@ import { UserDetails } from './user.details.entity';
 import { Role } from '../role/role.entity';
 import { EStatusUser } from './interfaces/status-user.interface';
 import { RoleRepository } from '../role/role.repository';
-import { EStatusRole } from '../role/interfaces/status-role.interface';
+import { EstatusRole } from '../role/interfaces/status-role.interface';
 
 
 
@@ -89,7 +89,7 @@ export class UserService {
 
 
         const roleExist = await this._roleRepository.findOne({
-            where: { id: roleId, status: EStatusRole.ACTIVE }
+            where: { id: roleId, status: EstatusRole.ACTIVE }
         })
 
         if (!roleExist) {
