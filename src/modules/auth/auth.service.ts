@@ -61,7 +61,7 @@ export class AuthService {
             roles: user.roles.map(r => r.name as RoleType),
         }
 
-        const token = await this._jwtService.sign(payload)
+        const token = this._jwtService.sign(payload)
         return {
             token: token,
         }

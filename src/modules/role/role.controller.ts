@@ -3,6 +3,7 @@ import { RoleDto } from './dto/role.dto';
 import { RoleService } from './role.service';
 import { Role } from './role.entity';
 
+
 @Controller('roles')
 export class RoleController {
     constructor(

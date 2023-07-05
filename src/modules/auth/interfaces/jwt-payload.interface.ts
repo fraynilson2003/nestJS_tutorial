@@ -6,4 +6,5 @@ export interface IJwtPayload {
     email: string,
     roles: RoleType[],
     iat?: Date
+    exp?: Date
 }
